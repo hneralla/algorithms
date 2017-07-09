@@ -1,11 +1,11 @@
 /** 
- *  @file    main.cpp
- *  @author  Harith Neralla
- *  @date    7/8/2017  
- *  @version 1.0 
- *  
- *  @brief Implementation of directed graphs.
- */
+*  @file    main.cpp
+*  @author  Harith Neralla
+*  @date    7/8/2017  
+*  @version 1.0 
+*  
+*  @brief Implementation of directed graphs.
+*/
 
 #include <cstring>
 #include <iostream>

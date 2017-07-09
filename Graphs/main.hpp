@@ -1,11 +1,11 @@
 /** 
- *  @file    main.hpp
- *  @author  Harith Neralla
- *  @date    7/8/2017  
- *  @version 1.0 
- *  
- *  @brief Implementation of directed graphs.
- */
+*  @file    main.hpp
+*  @author  Harith Neralla
+*  @date    7/8/2017  
+*  @version 1.0 
+*  
+*  @brief Implementation of directed graphs.
+*/
 
 #ifndef main_hpp
 #define main_hpp

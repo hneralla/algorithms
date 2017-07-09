@@ -1,11 +1,11 @@
 /** 
- *  @file    util.hpp
- *  @author  Harith Neralla
- *  @date    7/8/2017  
- *  @version 1.0 
- *  
- *  @brief Implementation of directed graphs.
- */
+*  @file    util.hpp
+*  @author  Harith Neralla
+*  @date    7/8/2017  
+*  @version 1.0 
+*  
+*  @brief Implementation of directed graphs.
+*/
 
 #ifndef util_hpp
 #define util_hpp

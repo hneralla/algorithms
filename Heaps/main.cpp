@@ -1,152 +1,184 @@
+/** 
+*  @file    main.cpp
+*  @author  Harith Neralla
+*  @date    7/8/2017  
+*  @version 1.0 
+*  
+*  @brief Implementation of min-heap.
+*/
+
 #include <iostream>
 #include <cstring>
+
 #include "main.hpp"
 #include "heap.hpp"
 #include "util.hpp"
-using namespace std;
 
+/**
+*   @brief  Main method. 
+*/
 int main()
 {
-    char h;
-    Heap heap = Heap(0); // Create an empty heap with capacity 0
-    int n;
-    int key;
+    char userInput;
+    Heap heap = Heap(0);
+    int n; // Input heap size
+    int key; // Heap element data
     int index;
     int value;
     bool initialized = false; // Boolean value to track whether heap has been initialized
     
-    cout << "\n\tWelcome to Project 02: Implementing Heap Data Structure" << endl;
+    std::cout << "\n\tWelcome!" << std::endl;
     printMenu();
     
-    while (strcmp(&h, "S") != 0)
+    while (strcmp(&userInput, "S") != 0)
     {
-        // Read user input
-        cin >> h; 
+        std::cin >> userInput; 
         
-        switch (h)
+        switch (userInput)
         {
             // Stop program
             case 'S':
+            {
                 stop(); 
+            }
             
             // Initialize heap
             case 'C': 
-                cout << "Enter a number: " << endl;
-                cin >> n;
+            {
+            	std::cout << "Enter a number: " << std::endl;
+                std::cin >> n;
                 heap = heap.Initialize(n);
                 initialized = true;
-                cout << "Heap created. Enter 'P' to view Menu\n" << endl;
+                std::cout << "Heap created. Enter 'P' to view Menu\n" << std::endl;
                 break;
-            
+            }
+                
             // Read input data
-            case 'R': 
-                if(initialized)
+            case 'R':
+            {
+            	if(initialized)
                 {
                     heap = read(heap, "HEAPinput.txt");
-                }else
+                }
+                else
                 {
-                    cout << "Heap not created. Please create heap before entering other commands. \nEnter 'P' to view Menu\n" << endl;
+                    std::cout << "Heap not created. Please create heap before entering other commands. \nEnter 'P' to view Menu\n" << std::endl;
                 }
                 break;
+            } 
                 
             // Print heap contents     
             case 'W': 
-                if(initialized)
+            {
+            	if(initialized)
                 {
                     heap.printHeap(heap);
-                    cout << "\nEnter 'P' to view Menu" << endl;
-                }else
+                    std::cout << "\nEnter 'P' to view Menu" << std::endl;
+                }
+                else
                 {
-                    cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << endl;
+                    std::cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << std::endl;
                 }
                 break;
-                
+            }
+                            
             // Insert key
             case 'I': 
-                if(initialized)
+            {
+            	if(initialized)
                 {
-                    cout << "Enter a number: " << endl;
-                    cin >> key; 
+                    std::cout << "Enter a number: " << std::endl;
+                    std::cin >> key; 
+
                     if(heap.getSize() < heap.getCapacity())
                     {
                         heap = heap.Insert(heap, key);
-                        cout << "Element inserted. Enter 'P' to view Menu\n" << endl;
-                    }else{
-                        cout << "Could not Insert Key. Heap is full\n" << endl;
+                        std::cout << "Element inserted. Enter 'P' to view Menu\n" << std::endl;
                     }
-                }else
+                    else
+                    {
+                        std::cout << "Could not Insert Key. Heap is full\n" << std::endl;
+                    }
+                }
+                else
                 {
-                    cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << endl;
+                    std::cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << std::endl;
                 }
                 break;
+            }
                 
             // Delete minimum element (returns key of deleted element)  
             case 'D': 
-                if(initialized)
+            {
+            	if(initialized)
                 {
                     // Check if heap is empty
                     if(heap.getSize() < 1)
                     {
-                        cout << "Heap underflow\nEnter 'P' to view Menu\n" << endl;
-                    }else
+                        std::cout << "Heap underflow\nEnter 'P' to view Menu\n" << std::endl;
+                    }
+                    else
                     {
-                        cout << heap.DeleteMin(heap) << " was deleted. Enter 'P' to view Menu\n" << endl;
+                        std::cout << heap.DeleteMin(heap) << " was deleted. Enter 'P' to view Menu\n" << std::endl;
 
                         // Decrement heap size 
-                        if(heap.getSize() > 0)
-                            heap.setSize(heap.getSize()-1); 
+                        heap.setSize(heap.getSize()-1); 
                     }
-                }else
+                }
+                else
                 {
-                    cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << endl;
+                    std::cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << std::endl;
                 }
                 break;
+            }   
                 
             // Decrease key    
-            case 'K': 
-                if(initialized)
+            case 'K':
+            {
+            	if(initialized)
                 {
-                    cout << "Enter a two numbers: " << endl;
-                    cin >> index;
-                    cin >> value;
+                    std::cout << "Enter a two numbers: " << std::endl;
+                    std::cin >> index;
+                    std::cin >> value;
 
                     if(index > 0) 
 		            {
-                        heap.DecreaseKey(heap, index-1, value); 
-                    }else
-                        cout << "Invalid index. Enter 'P' to view Menu\n" << endl;
-                }else
+                        heap.DecreaseKey(heap, index - 1, value); 
+                    }
+                    else
+                    {
+                        std::cout << "Invalid index. Enter 'P' to view Menu\n" << std::endl;
+                    }
+                }
+                else
                 {
-                    cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << endl;
+                    std::cout << "Heap not created. Please create heap before entering other commands.\nEnter 'P' to view Menu\n" << std::endl;
                 }
                 break;
-            
+            } 
+                
             case 'P':
-                printMenu();
+            {
+            	printMenu();
                 break;
+            }
         }
     }
    
     return 0;
 }
 
+/**
+*   @brief  Print menu contents. 
+*/
 void printMenu()
 {
-    cout << "\nEnter any of the following commands: \n" << endl;
-    cout << "'C' : Followed by a number 'n', to create a heap with capacity 'n'" << endl;
-    cout << "'R' : Read from file 'HEAPinput.txt'" << endl;
-    cout << "'W' : Print heap contents" << endl;
-    cout << "'I' : Followed by a number 'k', to insert element with key value 'k'" << endl;
-    cout << "'D' : Deletes minimum element in heap" << endl;
-    cout << "'K' : Followed by numbers 'i' and 'v', to decrease the key at index 'i' to value 'v'" << endl;
-    cout << "'S' : Stop program.\n" << endl;
+    std::cout << "\nEnter any of the following commands: \n" << std::endl;
+    std::cout << "'C' : Followed by a number 'n', to create a heap with capacity 'n'" << std::endl;
+    std::cout << "'R' : Read from file 'HEAPinput.txt'" << std::endl;
+    std::cout << "'W' : Print heap contents" << std::endl;
+    std::cout << "'I' : Followed by a number 'k', to insert element with key value 'k'" << std::endl;
+    std::cout << "'D' : Deletes minimum element in heap" << std::endl;
+    std::cout << "'K' : Followed by numbers 'i' and 'v', to decrease the key at index 'i' to value 'v'" << std::endl;
+    std::cout << "'S' : Stop program.\n" << std::endl;
 }
-
-
-
-
-
-
-
-
-

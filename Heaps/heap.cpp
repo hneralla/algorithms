@@ -1,33 +1,60 @@
+/** 
+*  @file    heap.cpp
+*  @author  Harith Neralla
+*  @date    7/8/2017  
+*  @version 1.0 
+*  
+*  @brief Implementation of min-heap.
+*/
+
 #include <math.h>
 #include <iostream>
+
 #include "heap.hpp"
-using namespace std;
 
-void Heapify(Element *A, int index, int size);
-
-// Constructor
+/**
+*   @brief  Default  constructor for Heap.  
+*  
+*   @param  c is an int that represent the
+*           capacity.
+*   @return nothing 
+*/  
 Heap::Heap(int c)
 {
     capacity = c;
     H = new Element[c];
 }
 
-// Return the index of the parent of the given index
+/**
+*   @brief  Computes parent index. 
+*  
+*   @param  index: int
+*   @return index of the parent
+*/  
 int Heap::getParent(int index)
 {
     return floor((index-1)/2);
 }
 
-// Initialize the heap to the capacity n
+/**
+*   @brief  Create a heap of capacity n.
+*  
+*   @param  int n is the capacity 
+*   @return updated Heap object
+*/  
 Heap Heap::Initialize(int n)
 {
-    // Create a heap of capacity n
     Heap heap = Heap(n); 
     heap.setSize(0);
     return heap;
 }
 
-// Implementation of the BuildHeap algorithm
+/**
+*   @brief  Implementation of the BuildHeap algorithm
+*  
+*   @param  Heap object and array of Element objects
+*   @return nothing
+*/  
 void Heap::BuildHeap(Heap heap, Element *A)
 {    
     // Copies elements in A to heap.H
@@ -39,14 +66,19 @@ void Heap::BuildHeap(Heap heap, Element *A)
         Heapify(heap.H, index, heap.getSize());
 }
 
-// Implementation of the InsertKey algorithm
-Heap Heap::Insert(Heap heap, int k)
+/**
+*   @brief  Implementation of the InsertKey algorithm
+*  
+*   @param  Heap object and key to insert
+*   @return updated Heap object
+*/  
+Heap Heap::Insert(Heap heap, int key)
 {
     heap.setSize(heap.getSize() + 1); 
     int index = heap.getSize() - 1; 
 
     // Find where to insert the key
-    while (index > 0 && heap.H[getParent(index)].getKey() > k)
+    while (index > 0 && heap.H[getParent(index)].getKey() > key)
     {
         // Swap element at index with its parent element
         heap.H[index] = heap.H[getParent(index)]; 
@@ -54,12 +86,17 @@ Heap Heap::Insert(Heap heap, int k)
     }
 
     // Key is set to the element at index
-    heap.H[index].setKey(k); 
+    heap.H[index].setKey(key); 
     
     return heap;
 }
 
-// Delete the minimum element in the heap
+/**
+*   @brief  Delete the minimum element in the heap
+*  
+*   @param  Heap object
+*   @return Key of minimum heap element
+*/  
 int Heap::DeleteMin(Heap heap)
 {
     // Variable to store minimum key
@@ -76,7 +113,12 @@ int Heap::DeleteMin(Heap heap)
     return min;
 }
 
-// Implementation of IncreaseKey algorithm
+/**
+*   @brief  Implementation of the DecreaseKey algorithm
+*  
+*   @param  Heap object, key to insert, index at where to insert
+*   @return nothing
+*/  
 void Heap::DecreaseKey(Heap heap, int index, int value)
 {
     // Variable for swapping
@@ -84,12 +126,13 @@ void Heap::DecreaseKey(Heap heap, int index, int value)
     
     if(index > heap.getSize())
     {
-        cout << "Index out of bounds. \nEnter 'P' to view Menu\n" << endl;
-    }else
+        std::cout << "Index out of bounds. \nEnter 'P' to view Menu\n" << std::endl;
+    }
+    else
     {
         if(value > heap.H[index].getKey()) 
         {
-            cout << "Error: new key is larger than current key" << endl;
+            std::cout << "Error: new key is larger than current key" << std::endl;
         }
         else
         {
@@ -106,22 +149,34 @@ void Heap::DecreaseKey(Heap heap, int index, int value)
             }
         }
 
-	   cout << "Key decreased. Enter 'P' to view Menu\n" << endl;
+	   std::cout << "Key decreased. Enter 'P' to view Menu\n" << std::endl;
     }
 }
 
+/**
+*   @brief  Print heap contents. 
+*/
 void Heap::printHeap(Heap heap)
 {
-    cout << "Heap Capacity: " << heap.capacity << endl;
-    cout << "Heap Size: " << heap.size << endl;
+    std::cout << "Heap Capacity: " << heap.capacity << std::endl;
+    std::cout << "Heap Size: " << heap.size << std::endl;
     
     for (int index = 0; index < heap.getSize(); index++)
-        cout << heap.H[index].getKey() << " "; 
+    {
+        std::cout << heap.H[index].getKey() << " "; 
+    }
     
-    cout << endl;
+    std::cout << std::endl;
 }
 
-// Implementation of the Heapify algorithm
+/**
+*   @brief  Implementation of Heapify algorithm
+*  
+*   @param  Element object array, index from where
+*           to start algorithm, and size (no. of elements)
+*           in the heap.
+*   @return nothing
+*/  
 void Heapify(Element *A, int index, int size)
 {
     // Indices of left and right children
@@ -132,13 +187,19 @@ void Heapify(Element *A, int index, int size)
     
     // Check if left child is less than its parent
     if (left < size && A[left].getKey() < A[index].getKey()) 
+    {
         smallest = left;
+    }
     else
+    {
         smallest = index;
+    }
     
     // Check if right child is smaller than the element at 'smallest'
     if (right < size && A[right].getKey() < A[smallest].getKey()) 
+    {
         smallest = right;
+    }
     
     if (smallest != index)
     {
@@ -151,5 +212,3 @@ void Heapify(Element *A, int index, int size)
         Heapify(A, smallest, size); 
     }
 }
-
-
